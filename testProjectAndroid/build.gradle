@@ -5,7 +5,7 @@ apply plugin: 'com.google.protobuf'
 
 buildscript {
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.2.0-alpha5'
         classpath 'junit:junit:4.7'
         classpath 'org.jacoco:org.jacoco.core:0.7.4.201502262128'
     }
@@ -13,7 +13,7 @@ buildscript {
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    buildToolsVersion "24.0.1"
 
     defaultConfig {
         applicationId "io.grpc.helloworldexample"
@@ -93,7 +93,7 @@ dependencies {
 }
 
 def assertJavaCompileHasProtoGeneratedDir(Object variant, Collection<String> codegenPlugins) {
-  assertJavaCompileHasProtoGeneratedDir(project, variant.name, variant.javaCompile, codegenPlugins)
+  assertJavaCompileHasProtoGeneratedDir(project, variant.name, variant.javaCompiler, codegenPlugins)
 }
 
 afterEvaluate {
@@ -101,7 +101,7 @@ afterEvaluate {
   // Android plugin, and would do nothing with our setup. We make 'test' to
   // trigger the "androidTest" Java compile tasks.
   android.testVariants.each { testVariant ->
-    test.dependsOn testVariant.javaCompile
+    test.dependsOn testVariant.javaCompiler
   }
 
   test.doLast {
